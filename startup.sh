@@ -38,5 +38,5 @@ if [[ ! -d "$ENV_BIN" ]]; then
 else
     cd $ENV_BIN
     . activate
-    python3 $DIR/main.py --format json
+    python3 $DIR/main.py -f json
 fi

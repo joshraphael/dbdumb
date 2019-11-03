@@ -1,0 +1,16 @@
+version: "3"
+services:
+  postgres:
+    image: "postgres"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=pgpassword
+      - POSTGRES_DB=dbdumb
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./internal/postgres/schema.sql:/docker-entrypoint-initdb.d/init.sql
+  pgadmin:
+    image: thajeztah/pgadmin4
+    ports:
+      - "5050:5050"

@@ -7,7 +7,8 @@ import click
 @click.option('-f', '--format', 'format', type=types.Format(), required=True, help='Output format.')
 def dbdumb(format):
     print('in dbdumb')
-    engine = create_engine("sqlite:////home/user/projects/dbdumb/dbdumb.db")
+    #engine = create_engine("sqlite:////home/user/projects/dbdumb/dbdumb.db")
+    engine = create_engine("postgresql://postgres:pgpassword@localhost:5432/dbdumb")
     print(sqlalchemy.__version__)
     print(engine.table_names())
     meta = MetaData(None)
