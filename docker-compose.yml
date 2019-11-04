@@ -1,7 +1,7 @@
 version: "3"
 services:
   postgres:
-    image: "postgres"
+    image: "postgres:latest"
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=pgpassword
@@ -10,7 +10,18 @@ services:
       - "5432:5432"
     volumes:
       - ./internal/postgres/schema.sql:/docker-entrypoint-initdb.d/init.sql
+  mysql:
+    image: mysql:latest
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./internal/mysql/schema.sql:/docker-entrypoint-initdb.d/init.sql
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: dbdumb
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
   pgadmin:
-    image: thajeztah/pgadmin4
+    image: "thajeztah/pgadmin4:latest"
     ports:
       - "5050:5050"

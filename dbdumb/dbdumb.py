@@ -12,6 +12,7 @@ def dbdumb(format, url):
     try:
         #engine = create_engine("sqlite:////home/user/projects/dbdumb/dbdumb.db", pool_pre_ping=True)
         #engine = create_engine("postgresql://postgres:pgpassword@localhost:5432/dbdumb", pool_pre_ping=True)
+        #engine = create_engine("mysql://user:password@127.0.0.1:3306/dbdumb", pool_pre_ping=True)
         engine = create_engine(url, pool_pre_ping=True)
         engine.connect()
     except exc.SQLAlchemyError as e:
