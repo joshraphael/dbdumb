@@ -38,5 +38,5 @@ if [[ ! -d "$ENV_BIN" ]]; then
 else
     cd $ENV_BIN
     . activate
-    python3 $DIR/main.py -f json sqlite:////home/joshraphael/projects/dbdumb/dbdumb.db
+    python3 $DIR/main.py -f json mysql://user:password@127.0.0.1:3306/dbdumb
 fi

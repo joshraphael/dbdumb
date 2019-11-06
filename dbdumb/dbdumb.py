@@ -2,6 +2,9 @@ import sqlalchemy
 from sqlalchemy import create_engine, MetaData, exc
 from dbdumb.click import types
 import click
+import json
+import yaml
+from datetime import datetime
 import sys
 
 @click.command()
@@ -30,6 +33,12 @@ def dbdumb(format, url):
         for row in rs:
             r = {}
             for i in range(len(row)):
-                r[cols[i]] = row[i]
+                if isinstance(row[i], int):
+                    r[cols[i]] = row[i]
+                else:
+                    r[cols[i]] = str(row[i])
             dump[table.name] = dump[table.name] + [r]
-    print(dump)
+    if format == "json":
+        print(json.dumps(dump))
+    if format == "yaml":
+        sys.stdout.write(yaml.dump(yaml.load(json.dumps(dump)), default_flow_style=False))
