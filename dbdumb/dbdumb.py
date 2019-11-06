@@ -14,14 +14,22 @@ def dbdumb(format, url):
         #engine = create_engine("postgresql://postgres:pgpassword@localhost:5432/dbdumb", pool_pre_ping=True)
         #engine = create_engine("mysql://user:password@127.0.0.1:3306/dbdumb", pool_pre_ping=True)
         engine = create_engine(url, pool_pre_ping=True)
-        engine.connect()
+        conn = engine.connect()
     except exc.SQLAlchemyError as e:
         print("ERROR:",e)
         return
-    print(sqlalchemy.__version__)
-    print(engine.table_names())
     meta = MetaData(None)
     meta.reflect(bind=engine)
-    print(meta.sorted_tables)
+    dump = {}
     for table in reversed(meta.sorted_tables):
-        print(table.columns)
+        cols = []
+        for column in table.columns:
+            cols = cols + [column.name]
+        rs = conn.execute("SELECT %s FROM %s" % (",".join(cols), table.name))
+        dump[table.name] = []
+        for row in rs:
+            r = {}
+            for i in range(len(row)):
+                r[cols[i]] = row[i]
+            dump[table.name] = dump[table.name] + [r]
+    print(dump)

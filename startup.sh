@@ -38,5 +38,5 @@ if [[ ! -d "$ENV_BIN" ]]; then
 else
     cd $ENV_BIN
     . activate
-    python3 $DIR/main.py -f json postgresql://postgres:pgpassword@localhost:5432/dbdumb
+    python3 $DIR/main.py -f json sqlite:////home/joshraphael/projects/dbdumb/dbdumb.db
 fi
