@@ -4,7 +4,6 @@ from dbdumb.click import types
 import click
 import json
 import yaml
-from datetime import datetime
 import sys
 
 @click.command()
@@ -16,11 +15,13 @@ def dbdumb(format, url):
         #engine = create_engine("sqlite:////home/user/projects/dbdumb/dbdumb.db", pool_pre_ping=True)
         #engine = create_engine("postgresql://postgres:pgpassword@localhost:5432/dbdumb", pool_pre_ping=True)
         #engine = create_engine("mysql://user:password@127.0.0.1:3306/dbdumb", pool_pre_ping=True)
-        engine = create_engine(url, pool_pre_ping=True)
+        #engine = create_engine("oracle+cx_oracle://fred:flintstone@localhost:1521/dbdumb", pool_pre_ping=True)
+        engine = create_engine(url, pool_pre_ping=True, max_identifier_length=128)
         conn = engine.connect()
     except exc.SQLAlchemyError as e:
         print("ERROR:",e)
         return
+    print("here")
     meta = MetaData(None)
     meta.reflect(bind=engine)
     dump = {}

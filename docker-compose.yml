@@ -21,6 +21,16 @@ services:
       MYSQL_DATABASE: dbdumb
       MYSQL_USER: user
       MYSQL_PASSWORD: password
+  oracle:
+    image: oracle/database:12.2.0.1-ee
+    container_name: oracle
+    ports:
+      - 1521:1521
+    environment:
+      - ORACLE_SID=dbdumb
+      - ORACLE_PWD=password11
+    volumes:
+      - ./internal/oracle/schema.sql:/opt/oracle/scripts/setup/schema.sql
   pgadmin:
     image: "thajeztah/pgadmin4:latest"
     ports:
