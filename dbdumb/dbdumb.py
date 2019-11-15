@@ -8,9 +8,9 @@ import sys
 
 @click.command()
 @click.option('-f', '--format', 'format', type=types.Format(), required=True, help='Output format.')
+@click.option('-p', '--ping', 'ping', is_flag=True, help="Ping database first")
 @click.argument('url', type=click.STRING)
-def dbdumb(format, url):
-    print('in dbdumb')
+def dbdumb(format, ping, url):
     try:
         #engine = create_engine("sqlite:////home/user/projects/dbdumb/dbdumb.db", pool_pre_ping=True)
         #engine = create_engine("postgresql://postgres:pgpassword@localhost:5432/dbdumb", pool_pre_ping=True)
@@ -19,9 +19,12 @@ def dbdumb(format, url):
         engine = create_engine(url, pool_pre_ping=True, max_identifier_length=128)
         conn = engine.connect()
     except exc.SQLAlchemyError as e:
+        if ping:
+            sys.exit(1)
         print("ERROR:",e)
         return
-    print("here")
+    if ping:
+        sys.exit(0)
     meta = MetaData(None)
     meta.reflect(bind=engine)
     dump = {}

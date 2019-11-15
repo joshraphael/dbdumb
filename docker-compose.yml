@@ -35,3 +35,10 @@ services:
     image: "thajeztah/pgadmin4:latest"
     ports:
       - "5050:5050"
+  dbdumb:
+    build: .
+    depends_on:
+      - postgres
+      - mysql
+      - oracle
+    command: bash scripts/test.sh
