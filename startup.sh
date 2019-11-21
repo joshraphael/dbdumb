@@ -38,5 +38,5 @@ if [[ ! -d "$ENV_BIN" ]]; then
 else
     cd $ENV_BIN
     . activate
-    python3 $DIR/main.py -f json oracle+cx_oracle://fred:flintstone@localhost:1521/dbdumb
+    python3 $DIR/main.py -f json oracle+cx_oracle://fred:flintstone@localhost:1521/XE
 fi

@@ -3,7 +3,6 @@
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 dbdumb_wait() {
-    echo "here"
     until python3 $DIR/../main.py -p -f json $1; do
       >&2 echo "Program is unavailable - sleeping"
       sleep 10
