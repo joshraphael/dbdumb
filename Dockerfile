@@ -8,6 +8,7 @@ RUN mkdir /dbdumb
 
 RUN wget https://download.oracle.com/otn_software/linux/instantclient/193000/oracle-instantclient19.3-basic-19.3.0.0.0-1.x86_64.rpm -O /dbdumb/instantclient.rpm
 RUN alien -i /dbdumb/instantclient.rpm
+RUN rm /dbdumb/instantclient.rpm
 
 COPY . /dbdumb
 WORKDIR /dbdumb

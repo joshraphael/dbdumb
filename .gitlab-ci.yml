@@ -1,0 +1,14 @@
+stages:
+  - test
+
+test:
+  stage: test
+  image: 
+    name: docker/compose:1.21.2
+    entrypoint: ["/bin/sh", "-c"]
+  variables:
+    DOCKER_HOST: tcp://docker:2375
+  services:
+    - docker:dind
+  script:
+    - docker-compose up --build --exit-code-from dbdumb postgres mysql oracle dbdumb
