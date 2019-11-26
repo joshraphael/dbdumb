@@ -7,7 +7,11 @@ dbdumb_wait() {
       >&2 echo "Program is unavailable - sleeping"
       sleep 10
     done
-
+    if [ ! -d "$DIR/../.test" ]; then
+        mkdir -p $DIR/../.test
+    fi
     >&2 echo "Program is up - executing command"
-    python3 $DIR/../main.py -f json $1
+    python3 $DIR/../main.py -f json $1 > $DIR/../.test/$2.out
+    diff $DIR/../tests/$2.txt $DIR/../.test/$2.out
+    return $?
 }

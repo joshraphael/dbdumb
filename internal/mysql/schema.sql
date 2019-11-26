@@ -1,12 +1,9 @@
 CREATE TABLE IF NOT EXISTS tasks (
     task_id INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
-    start_date DATE,
-    due_date DATE,
     status TINYINT NOT NULL,
     priority TINYINT NOT NULL,
-    description TEXT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    description TEXT
 );
 
-INSERT INTO tasks (title, start_date, due_date, status, priority, description) VALUES('test', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1, 1, "description");
+INSERT INTO tasks (title, status, priority, description) VALUES('test', 1, 1, "description");

@@ -5,8 +5,6 @@ CREATE TABLE user (
     user_name   TEXT    NOT NULL CHECK(TYPEOF(user_name) = 'text'),
     first_name  TEXT    NOT NULL CHECK(TYPEOF(first_name) = 'text'),
     last_name   TEXT    NOT NULL CHECK(TYPEOF(last_name) = 'text'),
-    update_time INTEGER NOT NULL CHECK(TYPEOF(update_time) = 'integer') DEFAULT (CAST(strftime('%s', 'now') as integer)),
-    insert_time INTEGER NOT NULL CHECK(TYPEOF(insert_time) = 'integer') DEFAULT (CAST(strftime('%s', 'now') as integer)),
     UNIQUE(user_name COLLATE NOCASE)
 );
 
