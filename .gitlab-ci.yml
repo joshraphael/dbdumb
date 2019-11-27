@@ -1,5 +1,6 @@
 stages:
   - test
+  - mirror
 
 test:
   stage: test
@@ -12,3 +13,11 @@ test:
     - docker:dind
   script:
     - docker-compose up --build --exit-code-from dbdumb postgres mysql oracle dbdumb
+
+github:
+  image: debian:stable
+  stage: mirror
+  only:
+    - master
+  script:
+    - bash scripts/github.sh
