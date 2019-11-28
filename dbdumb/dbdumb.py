@@ -6,18 +6,20 @@ import json
 import yaml
 import sys
 
+
 @click.command()
 @click.option('-f', '--format', 'format', type=types.Format(), required=True, help='Output format.')
 @click.option('-p', '--ping', 'ping', is_flag=True, help="Ping database first")
 @click.argument('url', type=click.STRING)
 def dbdumb(format, ping, url):
     try:
-        engine = create_engine(url, pool_pre_ping=True, max_identifier_length=128)
+        engine = create_engine(url, pool_pre_ping=True,
+                               max_identifier_length=128)
         conn = engine.connect()
     except exc.SQLAlchemyError as e:
         if ping:
             sys.exit(1)
-        print("ERROR:",e)
+        print("ERROR:", e)
         return
     if ping:
         sys.exit(0)
@@ -41,4 +43,5 @@ def dbdumb(format, ping, url):
     if format == "json":
         print(json.dumps(dump))
     if format == "yaml":
-        sys.stdout.write(yaml.dump(yaml.load(json.dumps(dump)), default_flow_style=False))
+        sys.stdout.write(yaml.dump(yaml.safe_load(
+            json.dumps(dump)), default_flow_style=False))

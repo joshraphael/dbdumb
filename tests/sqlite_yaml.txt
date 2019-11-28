@@ -1,0 +1,12 @@
+sqlite_sequence:
+- name: user
+  seq: 2
+user:
+- first_name: ADMIN
+  id: 1
+  last_name: ADMIN
+  user_name: admin
+- first_name: TEST
+  id: 2
+  last_name: TEST
+  user_name: test
